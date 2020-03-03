@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,8 +20,6 @@ namespace IntegrationService.Web
 			services.AddControllersWithViews();
 
 			services.RegisterPgContext();
-
-			services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -40,8 +36,6 @@ namespace IntegrationService.Web
 
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
-			if (!env.IsDevelopment())
-				app.UseSpaStaticFiles();
 
 			app.UseRouting();
 
@@ -50,14 +44,6 @@ namespace IntegrationService.Web
 				endpoints.MapControllerRoute(
 					"default",
 					"{controller}/{action=Index}/{id?}");
-			});
-
-			app.UseSpa(spa =>
-			{
-				spa.Options.SourcePath = "ClientApp";
-
-				if (env.IsDevelopment())
-					spa.UseAngularCliServer("start");
 			});
 		}
 	}
