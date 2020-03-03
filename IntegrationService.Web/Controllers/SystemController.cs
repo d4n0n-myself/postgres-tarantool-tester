@@ -27,6 +27,10 @@ namespace IntegrationService.Web.Controllers
 			var handlerResult = HttpContext
 				.Features
 				.Get<IExceptionHandlerPathFeature>();
+
+			if (handlerResult == null)
+				return Problem("Smth went wrong. No stack trace availible.");
+			
 			_logger.LogError(handlerResult.Error,
 				$"Unhandled error on {handlerResult.Path}:{Environment.NewLine} {handlerResult.Error}");
 			return Conflict(new
