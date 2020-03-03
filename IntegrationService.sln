@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationService.PostgreSQL", "IntegrationService.PostgreSQL\IntegrationService.PostgreSQL.csproj", "{1CB12EC2-23D1-4F50-9A06-452BAA9B9C3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationService.Models", "IntegrationService.Models\IntegrationService.Models.csproj", "{19CA8F7D-6CCF-4FA9-965A-EBA8ECC303DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationService.Tests", "IntegrationService.Tests\IntegrationService.Tests.csproj", "{BF771856-0310-471C-9A74-0907431203A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationService.Web", "IntegrationService.Web\IntegrationService.Web.csproj", "{3FB96F97-36C9-4692-9DFC-3333D2FD7AAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationService.Tarantool", "IntegrationService.Tarantool\IntegrationService.Tarantool.csproj", "{AEBD3A18-EB80-42D9-99CA-B34D54F4F937}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1CB12EC2-23D1-4F50-9A06-452BAA9B9C3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CB12EC2-23D1-4F50-9A06-452BAA9B9C3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CB12EC2-23D1-4F50-9A06-452BAA9B9C3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CB12EC2-23D1-4F50-9A06-452BAA9B9C3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19CA8F7D-6CCF-4FA9-965A-EBA8ECC303DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19CA8F7D-6CCF-4FA9-965A-EBA8ECC303DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19CA8F7D-6CCF-4FA9-965A-EBA8ECC303DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19CA8F7D-6CCF-4FA9-965A-EBA8ECC303DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF771856-0310-471C-9A74-0907431203A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF771856-0310-471C-9A74-0907431203A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF771856-0310-471C-9A74-0907431203A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF771856-0310-471C-9A74-0907431203A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FB96F97-36C9-4692-9DFC-3333D2FD7AAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FB96F97-36C9-4692-9DFC-3333D2FD7AAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FB96F97-36C9-4692-9DFC-3333D2FD7AAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FB96F97-36C9-4692-9DFC-3333D2FD7AAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEBD3A18-EB80-42D9-99CA-B34D54F4F937}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEBD3A18-EB80-42D9-99CA-B34D54F4F937}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEBD3A18-EB80-42D9-99CA-B34D54F4F937}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEBD3A18-EB80-42D9-99CA-B34D54F4F937}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
