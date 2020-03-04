@@ -12,4 +12,16 @@
       <ProjectReference Include="..\IntegrationService.Tarantool\IntegrationService.Tarantool.csproj" />
     </ItemGroup>
 
+    <PropertyGroup>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(MSBuildProjectName).xml</DocumentationFile>
+        <NoWarn>$(NoWarn);1591</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.0.0" />
+      <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.0.0" />
+      <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.0.0" />
+    </ItemGroup>
+
 </Project>

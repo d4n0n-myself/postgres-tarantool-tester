@@ -17,11 +17,13 @@ namespace IntegrationService.Web.Controllers
 			_logger = logger;
 		}
 
+		[HttpGet]
 		public IActionResult Ping()
 		{
 			return Ok("Online");
 		}
 
+		[ApiExplorerSettings(IgnoreApi = true)]
 		[AcceptVerbs("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS", "PATCH")]
 		public IActionResult Error()
 		{
@@ -41,6 +43,7 @@ namespace IntegrationService.Web.Controllers
 			});
 		}
 
+		[HttpPost]
 		public IActionResult ChangeDatabase()
 		{
 			Startup.CurrentDatabase = Startup.CurrentDatabase == typeof(PostgresRepository)
