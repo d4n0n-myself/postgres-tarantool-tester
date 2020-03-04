@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Linq.Expressions;
+using IntegrationService.PostgreSQL;
+using IntegrationService.Tarantool;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -38,6 +39,15 @@ namespace IntegrationService.Web.Controllers
 				handlerResult.Error.Message,
 				RequestPath = handlerResult.Path
 			});
+		}
+
+		public IActionResult ChangeDatabase()
+		{
+			Startup.CurrentDatabase = Startup.CurrentDatabase == typeof(PostgresRepository)
+				? typeof(TarantoolRepository)
+				: typeof(PostgresRepository);
+
+			return Ok(Startup.CurrentDatabase.Name);
 		}
 	}
 }
