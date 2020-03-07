@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using IntegrationService.PostgreSQL;
 using IntegrationService.Tarantool;
 using Microsoft.AspNetCore.Diagnostics;
@@ -44,11 +45,17 @@ namespace IntegrationService.Web.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult ChangeDatabase()
+		public async Task<IActionResult> ChangeDatabase()
 		{
-			Startup.CurrentDatabase = Startup.CurrentDatabase == typeof(PostgresRepository)
-				? typeof(TarantoolRepository)
-				: typeof(PostgresRepository);
+			if (Startup.CurrentDatabase == typeof(PostgresRepository))
+			{
+//				await TarantoolRepository.EnsureCreated();
+				Startup.CurrentDatabase = typeof(TarantoolRepository);
+			}
+			else
+			{
+				Startup.CurrentDatabase = typeof(PostgresRepository);
+			}
 
 			return Ok(Startup.CurrentDatabase.Name);
 		}

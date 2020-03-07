@@ -1,0 +1,2 @@
+﻿run to directory: cd /mnt/c/users/danon/desktop/tarantool
+start tarantool from file: tarantool myapp.lua
