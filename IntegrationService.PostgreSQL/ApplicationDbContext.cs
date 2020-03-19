@@ -1,5 +1,4 @@
-﻿#nullable enable
-using System;
+﻿using IntegrationService.Models;
 using Microsoft.EntityFrameworkCore;
 using IntegrationService.Models.Entities;
 
@@ -17,29 +16,8 @@ namespace IntegrationService.PostgreSQL
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			var connString = GetConnString();
-
-			optionsBuilder.UseNpgsql(connString);
+			optionsBuilder.UseNpgsql(ConnectionStrings.Current.Postgres);
 			base.OnConfiguring(optionsBuilder);
-		}
-
-		private static string GetConnString()
-		{
-			string? connString;
-			try
-			{
-				connString = Environment.GetEnvironmentVariable("PG_CONNSTRING");
-
-				if (string.IsNullOrEmpty(connString))
-					throw new ArgumentException();
-			}
-			catch (Exception e)
-			{
-				Console.Error.WriteLine("Environment variable PG_CONNSTRING is not defined.");
-				throw;
-			}
-
-			return connString;
 		}
 
 		public DbSet<Book> Books { get; set; }

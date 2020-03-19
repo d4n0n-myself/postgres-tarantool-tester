@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IntegrationService.Models;
@@ -65,7 +63,7 @@ namespace IntegrationService.Tarantool
 			msgPackContext.GenerateAndRegisterArrayConverter<Author>();
 			msgPackContext.GenerateAndRegisterArrayConverter<BookAuthor>();
 
-			var clientOptions = new ClientOptions("127.0.0.1:3301", context: msgPackContext);
+			var clientOptions = new ClientOptions(ConnectionStrings.Current.Tarantool, context: msgPackContext);
 			_box = new Box(clientOptions);
 			await _box.Connect();
 			_schema = _box.GetSchema();

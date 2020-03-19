@@ -16,18 +16,15 @@ namespace IntegrationService.Web
 {
 	public class Startup
 	{
-		public Startup(IConfiguration configuration)
-		{
-			Configuration = configuration;
-		}
-
-		public IConfiguration Configuration { get; }
+		public static IConfiguration Configuration { get; set; }
 
 		public static Type CurrentDatabase { get; set; }
 
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllersWithViews();
+
+			services.SetConnectionStrings();
 
 			services.ManagePostgresDb();
 
