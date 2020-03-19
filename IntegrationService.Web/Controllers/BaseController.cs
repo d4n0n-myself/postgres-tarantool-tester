@@ -1,10 +1,12 @@
-﻿using IntegrationService.Models;
+﻿using System.Threading.Tasks;
+using IntegrationService.Models;
+using IntegrationService.Models.Entities.Base;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IntegrationService.Web.Controllers
 {
 	[Route("[controller]/[action]")]
-	public class BaseController<T> : Controller where T : class
+	public class BaseController<T> : Controller where T : BaseEntity
 	{
 		private readonly IRepository _repository;
 
@@ -14,30 +16,37 @@ namespace IntegrationService.Web.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Delete(long id)
+		public async Task<IActionResult> Delete(long id)
 		{
-			_repository.Delete<T>(id);
+			await _repository.DeleteAsync<T>(id);
 			return Ok();
 		}
 
 		[HttpGet]
-		public IActionResult Get(long id)
+		public async Task<IActionResult> Get(long id)
 		{
-			_repository.Get<T>(id);
+			var data = await _repository.GetAsync<T>(id);
+			return Ok(data);
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> GetAll(long id)
+		{
+			var data = await _repository.GetAllAsync<T>();
+			return Ok(data);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Update(T entity)
+		{
+			await _repository.UpdateAsync(entity);
 			return Ok();
 		}
 
 		[HttpPost]
-		public IActionResult Update(T entity)
+		public async Task<IActionResult> Save(T entity)
 		{
-			_repository.Update(entity);
-			return Ok();
-		}
-
-		[HttpPost]
-		public IActionResult Save(T entity)
-		{
-			_repository.Save(entity);
+			await _repository.SaveAsync(entity);
 			return Ok();
 		}
 	}

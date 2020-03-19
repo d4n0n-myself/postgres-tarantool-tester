@@ -1,2 +1,27 @@
 ﻿run to directory: cd /mnt/c/users/danon/desktop/tarantool
-start tarantool from file: tarantool myapp.lua
+start tarantool from file: tarantool myapp.lua\
+
+namespace ProGaudi.Tarantool.Client.Model.Enums
+{
+  public enum Iterator : uint
+  {
+  // equals
+    Eq,
+   // equals in descending order
+    Req,
+    All,
+    //less than
+    Lt,
+    //less than or equal
+    Le,
+    //greater than or equal
+    Ge,
+   //greater than
+    Gt,
+    BitsAllSet,
+    BitsAnySet,
+    BitsAllNotSet,
+    Overlaps,
+    Neighbour,
+  }
+}

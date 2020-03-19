@@ -31,7 +31,7 @@ namespace IntegrationService.Web
 
 			services.ManagePostgresDb();
 
-			CurrentDatabase = typeof(PostgresRepository);
+			CurrentDatabase = typeof(TarantoolRepository);
 			
 			services.AddScoped<IRepository>(provider =>
 			{

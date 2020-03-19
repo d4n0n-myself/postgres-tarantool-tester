@@ -1,10 +1,14 @@
-﻿namespace IntegrationService.Models
+﻿using System.Threading.Tasks;
+using IntegrationService.Models.Entities.Base;
+
+namespace IntegrationService.Models
 {
 	public interface IRepository
 	{
-		bool Delete<T>(long id) where T : class;
-		T Get<T>(long id) where T : class;
-		bool Save<T>(T entity);
-		bool Update<T>(T entity);
+		Task<bool> DeleteAsync<T>(long id) where T : BaseEntity;
+		Task<T> GetAsync<T>(long id) where T : BaseEntity;
+		Task<T[]> GetAllAsync<T>() where T : BaseEntity;
+		Task<bool> SaveAsync<T>(T entity) where T : BaseEntity;
+		Task<bool> UpdateAsync<T>(T entity) where T : BaseEntity;
 	}
 }

@@ -1,10 +1,12 @@
 ﻿using IntegrationService.Models.Entities.Base;
+using ProGaudi.MsgPack.Light;
 
 namespace IntegrationService.Models.Entities
 {
+	[MsgPackArray]
 	public class BookAuthor : BaseEntity
 	{
-		public Book Book { get; set; }
-		public Author Author { get; set; }
+		[MsgPackArrayElement(1)] public Book Book { get; set; }
+		[MsgPackArrayElement(2)] public Author Author { get; set; }
 	}
 }
