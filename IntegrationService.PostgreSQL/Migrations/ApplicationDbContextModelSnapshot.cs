@@ -26,6 +26,21 @@ namespace IntegrationService.PostgreSQL.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<byte>("Age")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("BirthCity")
+                        .HasColumnType("text");
+
+                    b.Property<string>("BirthCountry")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("BirthDateTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<byte>("BooksCount")
+                        .HasColumnType("smallint");
+
                     b.Property<string>("FamilyName")
                         .HasColumnType("text");
 
@@ -33,6 +48,9 @@ namespace IntegrationService.PostgreSQL.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Nationality")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -47,13 +65,28 @@ namespace IntegrationService.PostgreSQL.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<string>("Category")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<byte>("HeadersCount")
+                        .HasColumnType("smallint");
+
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<int>("PagesCount")
-                        .HasColumnType("integer");
+                    b.Property<long>("PagesCount")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("Publisher")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PublisherCity")
                         .HasColumnType("text");
 
                     b.Property<DateTime>("ReleaseDate")

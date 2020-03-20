@@ -16,7 +16,13 @@ namespace IntegrationService.PostgreSQL.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(nullable: true),
                     FamilyName = table.Column<string>(nullable: true),
-                    MiddleName = table.Column<string>(nullable: true)
+                    MiddleName = table.Column<string>(nullable: true),
+                    Age = table.Column<byte>(nullable: false),
+                    BirthCountry = table.Column<string>(nullable: true),
+                    BirthCity = table.Column<string>(nullable: true),
+                    BooksCount = table.Column<byte>(nullable: false),
+                    Nationality = table.Column<string>(nullable: true),
+                    BirthDateTime = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -31,8 +37,13 @@ namespace IntegrationService.PostgreSQL.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(nullable: true),
                     ReleaseDate = table.Column<DateTime>(nullable: false),
-                    PagesCount = table.Column<int>(nullable: false),
-                    Publisher = table.Column<string>(nullable: true)
+                    PagesCount = table.Column<long>(nullable: false),
+                    Publisher = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    PublisherCity = table.Column<string>(nullable: true),
+                    HeadersCount = table.Column<byte>(nullable: false),
+                    Price = table.Column<decimal>(nullable: false),
+                    Category = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
