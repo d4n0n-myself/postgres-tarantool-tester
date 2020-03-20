@@ -30,7 +30,7 @@ namespace IntegrationService.Web.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> GetAll(long id)
+		public async Task<IActionResult> GetAll()
 		{
 			var data = await _repository.GetAllAsync<T>();
 			return Ok(data);

@@ -8,6 +8,7 @@ using ProGaudi.MsgPack.Light;
 using ProGaudi.Tarantool.Client;
 using ProGaudi.Tarantool.Client.Model;
 using ProGaudi.Tarantool.Client.Model.Enums;
+using ProGaudi.Tarantool.Client.Model.UpdateOperations;
 
 namespace IntegrationService.Tarantool
 {
@@ -69,9 +70,11 @@ namespace IntegrationService.Tarantool
 			_schema = _box.GetSchema();
 		}
 		
-		public Task<bool> DeleteAsync<T>(long id) where T : BaseEntity
+		public async Task<bool> DeleteAsync<T>(long id) where T : BaseEntity
 		{
-			throw new NotImplementedException();
+			await _schema[TypeName(typeof(T))]["primary_id"].Delete<TarantoolTuple<long>, T>(TarantoolTuple.Create(id));
+
+			return true;
 		}
 
 		public async Task<T> GetAsync<T>(long id) where T : BaseEntity
@@ -94,21 +97,41 @@ namespace IntegrationService.Tarantool
 		
 		public async Task<bool> SaveAsync<T>(T entity) where T : BaseEntity
 		{
-			try
-			{
-				var response = await _schema[TypeName(typeof(T))]["primary_id"].Insert(entity);
-				return true;
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine(e);
-				return false;
-			}
+			await _schema[TypeName(typeof(T))]["primary_id"].Insert(entity);
+			return true;
 		}
 
-		public Task<bool> UpdateAsync<T>(T entity) where T : BaseEntity
+
+		public async Task<bool> UpdateAsync<T>(T entity) where T : BaseEntity
 		{
-			throw new NotImplementedException();
+			await DeleteAsync<T>(entity.Id);
+
+			await SaveAsync(entity);
+
+			return true;
+		}
+
+		public async Task<bool> OldUpdateAsync<T>(T entity) where T : BaseEntity
+		{
+			var props = entity.GetType().GetProperties();
+			var operations = new UpdateOperation[props.Length];
+
+			for (var i = 0; i < props.Length; i++)
+			{
+				var propValue = props[i].GetValue(entity);
+				var genericTypeOperation = typeof(UpdateOperation)
+					.GetMethods()
+					.Single(x => x.Name == "CreateAssign")
+					.MakeGenericMethod(propValue.GetType())
+					.Invoke(null, new[] { i, propValue});
+
+				operations[i] = (UpdateOperation) genericTypeOperation;
+			}
+
+			await _schema[TypeName(typeof(T))]["primary_id"]
+				.Update<T, TarantoolTuple<long>>(TarantoolTuple.Create(entity.Id), operations);
+
+			return true;
 		}
 	}
 }
