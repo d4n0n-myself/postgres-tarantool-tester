@@ -10,7 +10,17 @@
 
 		public static ConnectionStrings Current { get; set; }
 
-		public string Postgres { get; }
-		public string Tarantool { get; }
+		public static void ChangeTarantool(string newConn)
+		{
+			Current.Tarantool = newConn;
+		}
+		
+		public static void ChangePostgres(string newConn)
+		{
+			Current.Postgres = newConn;
+		}
+		
+		public string Postgres { get; private set; }
+		public string Tarantool { get; private set; }
 	}
 }

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Net;
 using System.Threading.Tasks;
+using IntegrationService.Models;
 using IntegrationService.PostgreSQL;
 using IntegrationService.Tarantool;
 using Microsoft.AspNetCore.Diagnostics;
@@ -42,6 +44,43 @@ namespace IntegrationService.Web.Controllers
 				handlerResult.Error.Message,
 				RequestPath = handlerResult.Path
 			});
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> ChangeTarantoolString([FromQuery] string newConnection)
+		{
+			await Task.CompletedTask;
+			ConnectionStrings.ChangeTarantool(newConnection);
+			return Ok();
+		}
+		
+		[HttpPost]
+		public async Task<IActionResult> ChangePostgresString([FromQuery] string newConnection)
+		{
+			await Task.CompletedTask;
+			ConnectionStrings.ChangePostgres(newConnection);
+			return Ok();
+		}
+		
+		[HttpGet]
+		public async Task<IActionResult> GetPostgresString()
+		{
+			await Task.CompletedTask;
+			return Ok(ConnectionStrings.Current.Postgres);
+		}
+		
+		[HttpGet]
+		public async Task<IActionResult> GetTarantoolString()
+		{
+			await Task.CompletedTask;
+			return Ok(ConnectionStrings.Current.Tarantool);
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> GetDatabase()
+		{
+			await Task.CompletedTask;
+			return Ok(Startup.CurrentDatabase.Name);
 		}
 
 		[HttpPost]
