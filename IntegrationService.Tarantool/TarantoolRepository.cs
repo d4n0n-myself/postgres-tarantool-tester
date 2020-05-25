@@ -14,17 +14,22 @@ namespace IntegrationService.Tarantool
 {
 	public class TarantoolRepository : IRepository
 	{
-		private Box _box;
+		private static Box _box;
 		private ISchema _schema;
 
 		private string TypeName(Type type) => type.Name.ToLower();
 
-		public TarantoolRepository()
+		static TarantoolRepository()
 		{
 			Connect()
 				.ConfigureAwait(false)
 				.GetAwaiter()
 				.GetResult();
+		}
+
+		public TarantoolRepository()
+		{
+			_schema = _box.GetSchema();
 		}
 
 //		public static async Task<bool> EnsureCreated()
@@ -56,7 +61,7 @@ namespace IntegrationService.Tarantool
 //			return true;
 //		}
 
-		public async Task Connect()
+		public async static Task Connect()
 		{
 			var msgPackContext = new MsgPackContext();
 
@@ -67,20 +72,19 @@ namespace IntegrationService.Tarantool
 			var clientOptions = new ClientOptions(ConnectionStrings.Current.Tarantool, context: msgPackContext);
 			_box = new Box(clientOptions);
 			await _box.Connect();
-			_schema = _box.GetSchema();
 		}
 		
-		public async Task<bool> DeleteAsync<T>(long id) where T : BaseEntity
+		public async Task<bool> DeleteAsync<T>(long? id) where T : BaseEntity
 		{
-			await _schema[TypeName(typeof(T))]["primary_id"].Delete<TarantoolTuple<long>, T>(TarantoolTuple.Create(id));
+			await _schema[TypeName(typeof(T))]["primary_id"].Delete<TarantoolTuple<long?>, T>(TarantoolTuple.Create(id));
 
 			return true;
 		}
 
-		public async Task<T> GetAsync<T>(long id) where T : BaseEntity
+		public async Task<T> GetAsync<T>(long? id) where T : BaseEntity
 		{
 			var primaryIndex = _schema[TypeName(typeof(T))]["primary_id"];
-			var response = await primaryIndex.Select<TarantoolTuple<long>, T>(TarantoolTuple.Create(id),
+			var response = await primaryIndex.Select<TarantoolTuple<long?>, T>(TarantoolTuple.Create(id),
 				new SelectOptions {Iterator = Iterator.Eq});
 			
 			return response.Data.First();
@@ -89,7 +93,7 @@ namespace IntegrationService.Tarantool
 		public async Task<T[]> GetAllAsync<T>() where T : BaseEntity
 		{
 			var primaryIndex = _schema[TypeName(typeof(T))]["primary_id"];
-			var response = await primaryIndex.Select<TarantoolTuple<long>, T>(TarantoolTuple.Create(-1L),
+			var response = await primaryIndex.Select<TarantoolTuple<long>, T>(TarantoolTuple.Create(0L),
 				new SelectOptions {Iterator = Iterator.All});
 
 			return response.Data.ToArray();
@@ -100,7 +104,6 @@ namespace IntegrationService.Tarantool
 			await _schema[TypeName(typeof(T))]["primary_id"].Insert(entity);
 			return true;
 		}
-
 
 		public async Task<bool> UpdateAsync<T>(T entity) where T : BaseEntity
 		{
@@ -129,7 +132,7 @@ namespace IntegrationService.Tarantool
 			}
 
 			await _schema[TypeName(typeof(T))]["primary_id"]
-				.Update<T, TarantoolTuple<long>>(TarantoolTuple.Create(entity.Id), operations);
+				.Update<T, TarantoolTuple<long?>>(TarantoolTuple.Create(entity.Id), operations);
 
 			return true;
 		}

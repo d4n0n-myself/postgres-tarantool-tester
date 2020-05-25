@@ -25,4 +25,12 @@
       <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.0.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Update="nlog.config">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>

@@ -15,7 +15,7 @@ namespace IntegrationService.PostgreSQL
 			_context = context;
 		}
 
-		public async Task<bool> DeleteAsync<T>(long id) where T : BaseEntity
+		public async Task<bool> DeleteAsync<T>(long? id) where T : BaseEntity
 		{
 			var find = await _context.FindAsync<T>(id);
 			if (find == null) 
@@ -27,7 +27,7 @@ namespace IntegrationService.PostgreSQL
 			return true;
 		}
 
-		public async Task<T> GetAsync<T>(long id) where T : BaseEntity
+		public async Task<T> GetAsync<T>(long? id) where T : BaseEntity
 		{
 			var find = await _context.Set<T>().FindAsync(id);
 			return find;

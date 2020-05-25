@@ -37,14 +37,14 @@ namespace IntegrationService.Web.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Update(T entity)
+		public async Task<IActionResult> Update([FromBody] T entity)
 		{
 			await _repository.UpdateAsync(entity);
 			return Ok();
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Save(T entity)
+		public async Task<IActionResult> Save([FromBody] T entity)
 		{
 			await _repository.SaveAsync(entity);
 			return Ok();
