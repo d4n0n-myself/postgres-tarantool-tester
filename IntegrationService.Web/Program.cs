@@ -10,9 +10,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog.Web;
 using IntegrationService.Models;
-using Microsoft.Extensions.DependencyInjection;
-using IntegrationService.PostgreSQL;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace IntegrationService.Web
@@ -21,7 +18,6 @@ namespace IntegrationService.Web
 	{
 		public static void Main1(string[] args)
 		{
-			Console.WriteLine("Погнали наххххх");
 			Startup.Configuration = new ConfigurationBuilder()
 				.AddJsonFile("appsettings.json")
 				.Build();
@@ -54,8 +50,6 @@ namespace IntegrationService.Web
 
 			Task.WaitAll(tasks.Where(x => x != null).ToArray());
 			stopwatch.Stop();
-			Console.WriteLine($"Пизданулся: {tasks.Count(x => x == null)} раз");
-			Console.WriteLine("Втащил этой твари за " + stopwatch.ElapsedMilliseconds);
 		}
 
 		public static void Main(string[] args)
